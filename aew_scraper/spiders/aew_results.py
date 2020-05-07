@@ -8,4 +8,5 @@ class AewResultsSpider(scrapy.Spider):
     start_urls = ['http://www.profightdb.com/cards/aew-cards-pg1-no-285.html/']
 
     def parse(self, response):
-        pass
+        events = response.xpath(
+            '//tr[@class="gray"]/td/a[starts-with(@href, "/cards/aew/")]/@href').extract()
