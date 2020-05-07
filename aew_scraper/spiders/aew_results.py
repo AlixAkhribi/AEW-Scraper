@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
+from scrapy.http import Request
 
 
 class AewResultsSpider(scrapy.Spider):
@@ -10,3 +11,8 @@ class AewResultsSpider(scrapy.Spider):
     def parse(self, response):
         events = response.xpath(
             '//tr[@class="gray"]/td/a[starts-with(@href, "/cards/aew/")]/@href').extract()
+
+        for event in events:
+            absolute_url = response.urljoin(event)
+
+            yield Request(absolute_url, callback=self.parse_results)
