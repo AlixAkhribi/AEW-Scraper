@@ -16,3 +16,10 @@ class AewResultsSpider(scrapy.Spider):
             absolute_url = f"http://{self.allowed_domains[0]}{event}"
 
             yield Request(absolute_url, callback=self.parse_results)
+
+        next_page_url = response.xpath(
+            '//div[@class="pager"]/a[starts-with(@class , "selected")]/following-sibling::a[1]/@href').extract_first()
+
+        absolute_next_page_url = f"http://{self.allowed_domains[0]}{next_page_url}"
+
+        yield Request(absolute_next_page_url)
