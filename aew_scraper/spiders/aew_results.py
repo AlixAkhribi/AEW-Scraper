@@ -13,6 +13,6 @@ class AewResultsSpider(scrapy.Spider):
             '//tr[@class="gray"]/td/a[starts-with(@href, "/cards/aew/")]/@href').extract()
 
         for event in events:
-            absolute_url = f"{self.allowed_domains[0]}{event}"
+            absolute_url = f"http://{self.allowed_domains[0]}{event}"
 
             yield Request(absolute_url, callback=self.parse_results)
