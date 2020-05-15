@@ -39,3 +39,5 @@ class AewResultsSpider(scrapy.Spider):
             './/tr')[1].xpath('.//td/a/text()')[1].extract()
         state = event_details.xpath(
             './/tr')[1].xpath('.//td/a/text()')[2].extract()
+
+        matches = response.xpath('.//tr[@class="head"]/following-sibling::tr')
