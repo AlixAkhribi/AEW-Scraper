@@ -23,3 +23,7 @@ class AewResultsSpider(scrapy.Spider):
         absolute_next_page_url = f"http://{self.allowed_domains[0]}{next_page_url}"
 
         yield Request(absolute_next_page_url)
+
+    def parse_results(self, response):
+        event_name = response.xpath(
+            '//div[@class="right-content"]/h1/text()').extract_first().strip()
