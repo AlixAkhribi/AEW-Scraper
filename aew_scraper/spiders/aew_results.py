@@ -41,3 +41,16 @@ class AewResultsSpider(scrapy.Spider):
             './/tr')[1].xpath('.//td/a/text()')[2].extract()
 
         matches = response.xpath('.//tr[@class="head"]/following-sibling::tr')
+
+        for match in matches:
+            spot = match.xpath('.//td/i/text()|.//td/text()')[0].extract()
+            winner = match.xpath('.//td')[1]
+            vitory_type = match.xpath(
+                './/td/following-sibling::td')[1].xpath('.//text()').extract_first()
+            loser = match.xpath('.//td')[3]
+            duration = match.xpath(
+                './/td/following-sibling::td')[3].xpath('.//text()').extract_first()
+            match_type = match.xpath(
+                './/td/following-sibling::td')[4].xpath('.//text()').extract_first().replace('\xa0', "")
+            title = match.xpath(
+                './/td/following-sibling::td')[5].xpath('.//text()').extract()
