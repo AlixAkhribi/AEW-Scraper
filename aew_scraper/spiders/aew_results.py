@@ -54,3 +54,19 @@ class AewResultsSpider(scrapy.Spider):
                 './/td/following-sibling::td')[4].xpath('.//text()').extract_first().replace('\xa0', "")
             title = match.xpath(
                 './/td/following-sibling::td')[5].xpath('.//text()').extract()
+
+            yield{
+                "date": date,
+                "event name": event_name,
+                "match number": spot,
+                "winner(s)": winner.xpath('.//a/text()').extract(),
+                "victory type": vitory_type,
+                "loser(s)": loser.xpath('.//a/text()').extract(),
+                "duration": duration,
+                "match_type": match_type,
+                "title": title,
+                'arena': arena,
+                "city": city,
+                "state": state,
+                "country": country
+            }
