@@ -27,3 +27,15 @@ class AewResultsSpider(scrapy.Spider):
     def parse_results(self, response):
         event_name = response.xpath(
             '//div[@class="right-content"]/h1/text()').extract_first().strip()
+
+        event_details = response.xpath('//table')[0]
+        date = event_details.xpath(
+            './/tr')[0].xpath('.//a/@href').extract_first().split('/')[-1].replace('.html', "")
+        country = event_details.xpath(
+            './/tr')[1].xpath('.//td/img/@alt').extract_first()
+        arena = event_details.xpath(
+            './/tr')[1].xpath('.//td/a/text()')[0].extract()
+        city = event_details.xpath(
+            './/tr')[1].xpath('.//td/a/text()')[1].extract()
+        state = event_details.xpath(
+            './/tr')[1].xpath('.//td/a/text()')[2].extract()
